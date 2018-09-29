@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import crypto, { Hash } from "crypto";
 
 import EncodedMessage from "./EncodedMessage";
 
@@ -22,12 +22,16 @@ export enum DecodeCost {
 export class Encoder {
   public static NORMAL_HPS = 200;
 
-  decodeCost: DecodeCost;
-  salt: string;
+  public decodeCost: DecodeCost;
+  public salt: string;
+
+  private sha256: Hash;
 
   constructor(decodeCost = DecodeCost.Low, salt?: string) {
     this.decodeCost = decodeCost;
     this.salt = salt ? salt : this.generateRandomSalt();
+
+    this.sha256 = crypto.createHash("sha256");
   }
 
   public encode(message: string, randomSalt = false): EncodedMessage {
@@ -36,7 +40,7 @@ export class Encoder {
 
     let key: string = this.salt + this.generateKey();
     let rkey: string = this.reverseString(key);
-    let lock = Sha256.hash(key);
+    let lock = this.hash(key);
     let payload = XorCipher.encrypt(message, rkey);
 
     return new EncodedMessage(this.salt, lock, payload);
@@ -64,6 +68,11 @@ export class Encoder {
 
   private randomIntegerBetween(start: number, end: number): number {
     return Math.floor(Math.random() * (end + 1 - start) + start);
+  }
+
+  private hash(message: string) {
+    this.sha256.update(message);
+    return this.sha256.digest("base64");
   }
 }
 
