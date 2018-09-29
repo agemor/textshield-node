@@ -1,0 +1,24 @@
+{
+  "name": "textshield-node",
+  "version": "1.0.0",
+  "description": "Powerful method to protect sensitive information aganist unwanted web crawlers/scrapers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agemor/textshield-node.git"
+  },
+  "author": "HyunJun Kim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agemor/textshield-node/issues"
+  },
+  "homepage": "https://github.com/agemor/textshield-node#readme",
+  "devDependencies": {
+    "@types/node": "^10.11.3",
+    "ts-loader": "^4.5.0",
+    "typescript": "^3.0.3"
+  }
+}
