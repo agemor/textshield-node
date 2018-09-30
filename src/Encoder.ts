@@ -1,4 +1,4 @@
-import crypto, { Hash } from "crypto";
+import * as crypto from "crypto";
 import XorCipher from "./XorCipher";
 import EncodedMessage from "./EncodedMessage";
 
@@ -26,7 +26,7 @@ export class Encoder {
   public decodeCost: DecodeCost;
   public salt: string;
 
-  private sha256: Hash;
+  private sha256: crypto.Hash;
 
   constructor(decodeCost = DecodeCost.Low, salt?: string) {
     this.decodeCost = decodeCost;
