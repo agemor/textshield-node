@@ -22,4 +22,4 @@ export class TextShield {
   }
 }
 
-export default TextShield
+export default TextShield;
