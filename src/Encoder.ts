@@ -1,7 +1,6 @@
 import crypto, { Hash } from "crypto";
-
+import XorCipher from "./XorCipher";
 import EncodedMessage from "./EncodedMessage";
-
 
 export enum DecodeCost {
   Zero = 0,
@@ -20,7 +19,9 @@ export enum DecodeCost {
  * @license MIT
  */
 export class Encoder {
+
   public static NORMAL_HPS = 200;
+  public static readonly Base64CharacterTable = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
   public decodeCost: DecodeCost;
   public salt: string;
@@ -55,7 +56,7 @@ export class Encoder {
   private generateRandomSalt(length = 16): string {
     let output = "";
     for (let i = 0; i < length; i++)
-      output += Base64.CharacterTable.charAt(this.randomIntegerBetween(0, 64));
+      output += Encoder.Base64CharacterTable.charAt(this.randomIntegerBetween(0, 64));
     return output;
   }
 

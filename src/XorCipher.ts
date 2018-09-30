@@ -13,17 +13,7 @@ export class XorCipher {
    * @param key 
    */
   public static encrypt(input: string, key: string): string {
-    // Mmessages are UTF-8 encoded 
-    return Base64.encode(Utf8.encode(this.encode(input, key)));
-  }
-
-  /**
-   * Decrypt message
-   * @param input 
-   * @param key 
-   */
-  public static decrypt(input: string, key: string) {
-    return this.encode(Utf8.decode(Base64.decode(input)), key);
+    return Buffer.from(this.encode(input, key), "utf-8").toString("base64")
   }
 
   /**
