@@ -1,5 +1,5 @@
 import TextShield from "./TextShield";
-import Encoder from "./Encoder";
+import { Encoder, DecodeCost } from "./Encoder";
 import EncodedMessage from "./EncodedMessage";
 export default TextShield;
-export { Encoder, EncodedMessage };
+export { Encoder, EncodedMessage, DecodeCost };
