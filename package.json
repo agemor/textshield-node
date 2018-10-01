@@ -1,6 +1,6 @@
 {
   "name": "textshield-node",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Powerful method to protect sensitive information aganist unwanted web crawlers/scrapers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

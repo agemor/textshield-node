@@ -3,6 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var crypto = require("crypto");
 var XorCipher_1 = require("./XorCipher");
 var EncodedMessage_1 = require("./EncodedMessage");
+/**
+ * Pre-defined decode cost for user convinience
+ * As browers normally terminate JavaScript runtime that exceeds over 10 secs,
+ * decode cost of 125 is high enough to stop all executions.
+ */
 var DecodeCost;
 (function (DecodeCost) {
     DecodeCost[DecodeCost["Zero"] = 0] = "Zero";
@@ -13,7 +18,11 @@ var DecodeCost;
     DecodeCost[DecodeCost["Infinite"] = 125] = "Infinite";
 })(DecodeCost = exports.DecodeCost || (exports.DecodeCost = {}));
 /**
- * Textshield text code generator
+ * TextShield Text Encoder
+ *
+ * Generates random seed and natural number N based on given decode cost.
+ * By these values, lock = H(seed + N) and payload = E(message, reverse(seed + N))
+ * is calculated.
  *
  * @version 1.0.0
  * @author HyunJun Kim

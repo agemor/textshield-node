@@ -2,6 +2,11 @@ import * as crypto from "crypto";
 import XorCipher from "./XorCipher";
 import EncodedMessage from "./EncodedMessage";
 
+/**
+ * Pre-defined decode cost for user convinience
+ * As browers normally terminate JavaScript runtime that exceeds over 10 secs,
+ * decode cost of 125 is high enough to stop all executions.
+ */
 export enum DecodeCost {
   Zero = 0,
   Low = 0.2,
@@ -12,16 +17,20 @@ export enum DecodeCost {
 }
 
 /**
- * Textshield text code generator
- * 
+ * TextShield Text Encoder
+ *
+ * Generates random seed and natural number N based on given decode cost.
+ * By these values, lock = H(seed + N) and payload = E(message, reverse(seed + N))
+ * is calculated.
+ *
  * @version 1.0.0
  * @author HyunJun Kim
  * @license MIT
  */
 export class Encoder {
-
   public static NORMAL_HPS = 200;
-  public static readonly Base64CharacterTable = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+  public static readonly Base64CharacterTable =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
   public decodeCost: DecodeCost;
   public salt: string;
@@ -56,7 +65,9 @@ export class Encoder {
   private generateRandomSalt(length = 16): string {
     let output = "";
     for (let i = 0; i < length; i++)
-      output += Encoder.Base64CharacterTable.charAt(this.randomIntegerBetween(0, 64));
+      output += Encoder.Base64CharacterTable.charAt(
+        this.randomIntegerBetween(0, 64)
+      );
     return output;
   }
 
